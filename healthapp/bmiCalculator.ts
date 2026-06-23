@@ -1,5 +1,7 @@
+import { numCheck } from "./utils";
+
 function getBmi(height: number, weight: number): number {
-  return weight / ((height/100) ** 2);
+  return weight / (height / 100) ** 2;
 }
 
 type BMI =
@@ -33,4 +35,16 @@ function calculateBmi(height: number, weight: number): BMI {
   }
 }
 
-console.log(calculateBmi(180, 74));
+try {
+  if (process.argv.length != 4) {
+      throw Error("pass only 2 numbers for this");
+  }
+    const height: number = numCheck(process.argv[2]);
+    const weight: number = numCheck(process.argv[3]);
+    console.log(calculateBmi(height, weight));
+} catch (error:unknown) {
+  if (error instanceof Error ){
+    console.log(error.message)
+  }
+}
+

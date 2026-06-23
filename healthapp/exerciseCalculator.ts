@@ -1,3 +1,5 @@
+import { numCheck } from "./utils";
+
 interface ExerciseData {
   periodLength: number;
   trainingDays: number;
@@ -8,20 +10,22 @@ interface ExerciseData {
   average: number;
 }
 
-type rating = "needs to improve" | "not too bad but could be better" | "very nice";
+type RatingMsg =
+  | "needs to improve"
+  | "not too bad but could be better"
+  | "very nice";
 
 function calculateExercises(
   exerciseHours: number[],
   target: number,
 ): ExerciseData {
-  let result: ExerciseData;
   const periodLength = exerciseHours.length;
   const trainingDays = exerciseHours.filter((hour) => hour > 0).length;
   const totalHours = exerciseHours.reduce((s, a) => s + a, 0);
   const average = periodLength > 0 ? totalHours / periodLength : 0;
   const success = average >= target;
   const rating = 1 + Math.floor((trainingDays / periodLength) * 2);
-  let ratingDescription: rating;
+  let ratingDescription: RatingMsg;
   switch (rating) {
     case 1:
       ratingDescription = "needs to improve";
@@ -45,5 +49,17 @@ function calculateExercises(
   };
 }
 
-const report = calculateExercises([3, 0, 2, 4, 0, 1, 5], 2);
-console.log(report);
+
+
+try {
+  if (process.argv.length < 4) {
+    throw Error("invalid number of inputs");
+  }
+  const target: number = numCheck(process.argv[2]);
+  const exerciseHours: number[] = process.argv.slice(3).map((h) => numCheck(h))
+  console.log(calculateExercises(exerciseHours, target));
+} catch (error: unknown) {
+  if (error instanceof Error) {
+    console.log(error.message);
+  }
+}
