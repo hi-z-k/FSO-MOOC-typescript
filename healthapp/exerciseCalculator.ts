@@ -1,4 +1,4 @@
-import { numCheck } from "./utils";
+import { numCheck } from "./utils.ts";
 
 interface ExerciseData {
   periodLength: number;
