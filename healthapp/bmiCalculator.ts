@@ -1,4 +1,4 @@
-import { numCheck } from "./utils";
+import { numCheck } from "./utils.ts";
 
 function getBmi(height: number, weight: number): number {
   return weight / (height / 100) ** 2;
