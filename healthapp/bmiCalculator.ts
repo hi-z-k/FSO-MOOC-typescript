@@ -14,7 +14,7 @@ type BMI =
   | "Obese Class II"
   | "Obese Class III";
 
-function calculateBmi(height: number, weight: number): BMI {
+export function calculateBmi(height: number, weight: number): BMI {
   const bmi = getBmi(height, weight);
   if (bmi >= 40.0) {
     return "Obese Class III";
@@ -35,16 +35,20 @@ function calculateBmi(height: number, weight: number): BMI {
   }
 }
 
-try {
-  if (process.argv.length != 4) {
-      throw Error("pass only 2 numbers for this");
-  }
-    const height: number = numCheck(process.argv[2]);
-    const weight: number = numCheck(process.argv[3]);
-    console.log(calculateBmi(height, weight));
-} catch (error:unknown) {
-  if (error instanceof Error ){
-    console.log(error.message)
+
+if (process.argv[1] === import.meta.filename) {
+  try {
+    if (process.argv.length != 4) {
+        throw Error("pass only 2 numbers for this");
+    }
+      const height: number = numCheck(process.argv[2]);
+      const weight: number = numCheck(process.argv[3]);
+      console.log(calculateBmi(height, weight));
+  } catch (error:unknown) {
+    if (error instanceof Error ){
+      console.log(error.message)
+    }
   }
 }
+
 
