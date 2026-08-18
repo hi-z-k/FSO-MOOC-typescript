@@ -1,6 +1,6 @@
 import { numCheck } from "./utils.ts";
 
-interface ExerciseData {
+export interface ExerciseData {
   periodLength: number;
   trainingDays: number;
   success: boolean;
@@ -10,12 +10,12 @@ interface ExerciseData {
   average: number;
 }
 
-type RatingMsg =
+export type RatingMsg =
   | "needs to improve"
   | "not too bad but could be better"
   | "very nice";
 
-function calculateExercises(
+export function calculateExercises(
   exerciseHours: number[],
   target: number,
 ): ExerciseData {
@@ -49,17 +49,18 @@ function calculateExercises(
   };
 }
 
-
-
-try {
-  if (process.argv.length < 4) {
-    throw Error("invalid number of inputs");
+if (process.argv[1] === import.meta.filename){
+  try {
+    if (process.argv.length < 4) {
+      throw Error("invalid number of inputs");
+    }
+    const target: number = numCheck(process.argv[2]);
+    const exerciseHours: number[] = process.argv.slice(3).map((h) => numCheck(h));
+    console.log(calculateExercises(exerciseHours, target));
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
   }
-  const target: number = numCheck(process.argv[2]);
-  const exerciseHours: number[] = process.argv.slice(3).map((h) => numCheck(h));
-  console.log(calculateExercises(exerciseHours, target));
-} catch (error: unknown) {
-  if (error instanceof Error) {
-    console.log(error.message);
-  }
-}
+};
+
