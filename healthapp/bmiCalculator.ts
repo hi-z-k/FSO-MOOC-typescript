@@ -46,7 +46,7 @@ if (process.argv[1] === import.meta.filename) {
       console.log(calculateBmi(height, weight));
   } catch (error:unknown) {
     if (error instanceof Error ){
-      console.log(error.message)
+      console.log(error.message);
     }
   }
 }

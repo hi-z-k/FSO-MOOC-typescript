@@ -56,7 +56,7 @@ try {
     throw Error("invalid number of inputs");
   }
   const target: number = numCheck(process.argv[2]);
-  const exerciseHours: number[] = process.argv.slice(3).map((h) => numCheck(h))
+  const exerciseHours: number[] = process.argv.slice(3).map((h) => numCheck(h));
   console.log(calculateExercises(exerciseHours, target));
 } catch (error: unknown) {
   if (error instanceof Error) {
